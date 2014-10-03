@@ -50,9 +50,12 @@ class NumberToText {
 			{ 
 				$title_length 	= ( $length == 6 ? 3 : ( $length == 5 ? 2 : 1 ) );
 				$title_value 	= substr($entero, 0, $title_length);
-				    
-				$this->text    	.= $this->getInteger( $title_value, $entero ) ; 
-				$this->text 	.= ($title_value <= 10 || ( $title_value >= 99 && $title_value <= 100  ) ? ' Mil ': ' y ' ); 
+				     
+
+				$this->text    	.= $this->getInteger( $title_value, $entero ) ;  
+				$this->text 	.= ($title_value <= 10 
+										|| ( $title_value >= 99 && $title_value <= 100 
+											|| in_array($title_value, array('11', '12', '13', '14', '15'))  ) ? ' Mil ': ' y ' ); 
  
 				if ( preg_match('/[1-9]/', $resto) )
 				{
@@ -66,8 +69,7 @@ class NumberToText {
  				if ( ! in_array($entero, array('11', '12', '13','14', '15')) )
 				{  
 					if ( preg_match('/[1-9]/', $resto) )
-					{ 
-
+					{  
 						$resto = preg_replace('/^0+/', '', $resto);  
 
 						$this->text .= $this->parse( $resto );
